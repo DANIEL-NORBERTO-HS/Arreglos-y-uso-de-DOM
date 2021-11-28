@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio 1 Matriz de identidad</title>
+</head>
+<body>
+<center><div class="contenido">
+    
+      
+<p>La Matriz sera cuadrada N x N</p>
+<p>Ingresa el número de tamaño que tendra la Matriz y luego presiona ENVIAR</p>
+<input type="number" id="numero" min="2" value="">
+<button type="button" id="boton"> ENVIAR</button>
+
+<script>
+//Autor: Daniel Norberto Hernández Santiago num.Ctrl: 18390015
+//creación de la variable identidad la cual hace referencia al boton enviar
+  let identidad = document.getElementById("boton");
+  //se agrega un detector de eventos para llamar a la funcion crearmatrizIdentidad un vez dado click en el boton enviar
+  identidad.addEventListener("click",crearmatrizIdentidad);
+  function crearmatrizIdentidad(){
+        let body =document.getElementsByTagName("body")[0];
+        let SaizuMatriz = document.getElementById("numero").value;
+        if (SaizuMatriz<=0 || SaizuMatriz==1){
+            alert("La Matriz es invalida por favor ingrese tamaño de matriz valido");
+            //con esto se recarga la pagina para que se pueda ingresar nuevamente un número
+            location.href = location.href;
+        }
+        let table = document.createElement("table");
+        let tr,td,texto;
+
+        let HaichiMatriz = new Array( SaizuMatriz);
+        for(let n=0;n< SaizuMatriz;n++){
+            HaichiMatriz[n]= new Array( SaizuMatriz);
+            for(let m=0;m< SaizuMatriz;m++){
+                if(n==m){
+                    HaichiMatriz[n][m]=1;
+                }else{
+                    HaichiMatriz[n][m]=0;
+                }
+            }
+        }
+        for(let i=0;i< SaizuMatriz;i++){
+            tr=document.createElement("tr");
+            for (let j = 0; j <  SaizuMatriz; j++) {
+                td=document.createElement("td");
+                texto=document.createTextNode(HaichiMatriz[i][j]);
+                td.appendChild(texto);
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+        }
+        table.setAttribute("border","4");
+        body.appendChild(table);
+
+  }
+</script>
+</div></center>
+</body>
+</html>

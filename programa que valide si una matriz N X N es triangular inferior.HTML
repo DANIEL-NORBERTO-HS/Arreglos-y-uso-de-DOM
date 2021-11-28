@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio 3 matriz N X N es triangular inferior</title>
+</head>
+<body>
+<center><div class="contenedor">
+      <style type="text/css">
+  body {
+    font-family: Georgia, "Times New Roman",
+          Times, serif;
+    color: black;
+    background-color:#4d3dda }
+  h1 {
+    font-family: Helvetica, Geneva, Arial,
+          SunSans-Regular, sans-serif }
+  </style>
+<p>La matriz sera cuadrada N x N</p>
+<p>Ingresa el numero de tamaño la matriz y luego presiona ENVIAR</p>
+<input type="number" id="numero" min="2" value="">
+
+<button type="button" id="boton"> ENVIAR</button>
+
+<script>
+//Autor: Daniel Norberto Hernández Santiago num.Ctrl: 18390015
+//creación de la variable refe la cual hace referencia al boton enviar
+  let refe = document.getElementById("boton");
+  //se agrega un detector de eventos para llamar a la funcion CreaMatrizInfe una vez dado click en el boton enviar
+  refe.addEventListener("click",CreaMatrizInfe);
+  let pulsado=0;
+//funcion que crea la matriz de identidad
+  function CreaMatrizInfe(){
+        let body =document.getElementsByTagName("body")[0];
+        let SaizuMatriz = document.getElementById("numero").value;
+        if (SaizuMatriz<=0 || SaizuMatriz==1){
+            alert("La Matriz es invalida por favor ingrese tamaño de matriz valido");
+            //con esto se recarga la pagina para que se pueda ingresar nuevamente un número
+            location.href = location.href;
+        }
+        pulsado++;
+        /*Este metodo hace que si se envia 2 veces o mas un número en el recuadro de ingresar el tamaño de la matriz se recarga la 
+        Página para que no ocurra un error por los datos de multiples tablas*/
+        if(pulsado>=2){
+            location.href = location.href;
+        }
+
+        let table = document.createElement("table");
+        let tr,td,texto;
+        let input;
+        let boton = document.createElement("button");
+        boton.setAttribute("onclick", "obtenervalores("+SaizuMatriz+")");
+        texto = document.createTextNode("Verificar");
+        boton.appendChild(texto);
+        
+        let arregloMatriz = new Array(SaizuMatriz);
+        for(let n=0;n<SaizuMatriz;n++){
+            arregloMatriz[n]= new Array(SaizuMatriz);
+            for(let m=0;m<SaizuMatriz;m++){
+                if(n==m){
+                    arregloMatriz[n][m]=1;
+                }else{
+                    arregloMatriz[n][m]=0;
+                }
+            }
+        }
+
+
+        for(let i=0;i<SaizuMatriz;i++){
+            tr=document.createElement("tr");
+            for (let j = 0; j < SaizuMatriz; j++) {
+                td=document.createElement("td");
+                input=document.createElement("input");
+                input.setAttribute("id",i+""+j);
+                input.setAttribute("value", "0");
+                input.setAttribute("type", "number");
+               
+                td.appendChild(input);
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+        }
+        table.appendChild(boton);
+        table.setAttribute("border","3");
+        body.appendChild(table);
+
+  }
+  //En esta funcion se obtienen los valores de la matriz
+  function obtenervalores(SaizuMatriz){
+    let arregloMatriz = new Array(SaizuMatriz);
+        for(let n=0;n<SaizuMatriz;n++){
+            arregloMatriz[n]= new Array(SaizuMatriz);
+            for(let m=0;m<SaizuMatriz;m++){
+                arregloMatriz[n][m]=document.getElementById(n+""+m).value;
+            }
+        }
+        //Se hace el recorrido de la matriz para verficar que los valores por encima de la diagonal principal son todos iguales a 0 
+        let contador = 0;
+        for(let i=0;i<SaizuMatriz; i++){
+            for(let j=0; j<SaizuMatriz; j++){
+                if(j>i){
+ 
+                    if(arregloMatriz[i][j] != 0){
+                        contador = + 1;
+                    }
+                }
+            }
+        }
+        
+
+        if(contador != 0){
+            alert("La matriz no es triangular inferior");
+        }else{
+            alert("La matriz es triangular inferior");
+        }
+                                
+
+  }
+</script>
+<div style="width:100%; text-align:center">
+</body>
+</html>
